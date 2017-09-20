@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hangman Game</title>
+</head>
+
+<body>
+
+  <div id="game">
+    <p> Target Word: <span id="target-word">none</span>
+    <p> User Input: <span id="user-input">none</span>
+    <p> Failed Guesses: <span id="fail-guesses">none</span></p>
+    <p> Lives Remaining: <span id="remaining-lives">none</span></p>
+    <p> Wins: <span id="num-wins">none</span></p>
+    <p> Losses: <span id="num-losses">none</span></p>
+  </div> 
+
+  <script type="text/javascript">
+
+    //Displayed in the HTML
+    var targetWordElem = document.getElementById("target-word")
+    var userInputElem = document.getElementById("user-input");
+    var failedGuessesElem = document.getElementById("fail-guesses");
+    var livesElem = document.getElementById("remaining-lives");
+    var numWinsElem = document.getElementById("num-wins");
+    var numLossesElem = document.getElementById("num-losses");
+
+
+    var numWins = 0;
+    var numLosses = 0;
+    var lives = 10;
+    var userInput = "";
+    var failedGuesses = [];
+    var possibleWords = ["apple","banana","pomegranate"];
+    var targetWord = [];
+    var chosenWord = "";
+    var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+
+    //Initialization
+
+    chosenWord = possibleWords[Math.floor(Math.random()*possibleWords.length)] //randomly chooses a word to be targetWord
+
+    //populates targetWord to have the proper number of underscores
+    for(var i = 0; i < chosenWord.length; i++){
+      targetWord.push(" __ "); // adds an _ to the end of targetWord array
+    }
+    console.log("chosenWord: " + chosenWord);
+    
+    targetWordElem.innerText = targetWord; //pushes targetWord to HTML
+    console.log("targetWord: " + targetWord);
+   
+
+
+  //Do this when a user presses a key
+
+    document.onkeyup = function(event) {
+
+
+    userInput = event.key.toLowerCase();
+    userInputElem.innerText = userInput;
+    console.log("userInput: " + userInput);
+
+
+    //validation - checks if userInput is in chosenWord
+    if(chosenWord.indexOf(userInput) === -1){ //if not, run the below
+      if(failedGuesses.indexOf(userInput) > -1) { //
+        console.log("Not in chosenWord. Exists in failedGuesses")
+      } else { //puts the letter in failedGuesses array
+        lives--;
+        livesElem.innerText = lives;
+        console.log("Lives remaining: " + lives);
+        failedGuesses.push(userInput);
+        failedGuessesElem.innerText = failedGuesses;
+        console.log("Not in chosenWord. Updated failedGuesses: " +failedGuesses);
+      } 
+    } else{ //start of big else
+
+      for (var j = 0; j < chosenWord.length; j++){ //populates targetWord with the user input
+        if(chosenWord[j] === userInput){
+          targetWord[j] = userInput;
+          targetWordElem.innerText = targetWord;
+          console.log("targetWord: " + targetWord);
+        }
+
+        if(Array.from(chosenWord) === targetWord) { //checks if you have solved the puzzle
+          win ++;
+          console.log("Wins: " + win);
+          // reset and win game code here
+        }
+      } // end for loop j
+
+      if(lives === 0) {
+        console.log("You have no more lives")
+        // reset code here
+      } // end of population for loop
+
+    } // end of big else
+
+} // end of document.onkeyup 
+
+  </script>
+
+</body>
+
+</html>
