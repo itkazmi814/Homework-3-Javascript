@@ -10,14 +10,14 @@
 
   <div id="game">
     <p> Target Word: <span id="target-word">none</span>
-    <p> User Input: <span id="user-input">none</span>
-    <p> Failed Guesses: <span id="fail-guesses">none</span></p>
-    <p> Lives Remaining: <span id="remaining-lives">none</span></p>
-    <p> Wins: <span id="num-wins">none</span></p>
-    <p> Losses: <span id="num-losses">none</span></p>
-  </div> 
+      <p> User Input: <span id="user-input">none</span>
+        <p> Failed Guesses: <span id="fail-guesses">none</span></p>
+        <p> Lives Remaining: <span id="remaining-lives">none</span></p>
+        <p> Wins: <span id="num-wins">none</span></p>
+        <p> Losses: <span id="num-losses">none</span></p>
+      </div> 
 
-  <script type="text/javascript">
+      <script type="text/javascript">
 
     //Displayed in the HTML
     var targetWordElem = document.getElementById("target-word")
@@ -50,12 +50,12 @@
     
     targetWordElem.innerText = targetWord; //pushes targetWord to HTML
     console.log("targetWord: " + targetWord);
-   
+
 
 
   //Do this when a user presses a key
 
-    document.onkeyup = function(event) {
+  document.onkeyup = function(event) {
 
 
     userInput = event.key.toLowerCase();
@@ -67,7 +67,8 @@
     if(chosenWord.indexOf(userInput) === -1){ //if not, run the below
       if(failedGuesses.indexOf(userInput) > -1) { //
         console.log("Not in chosenWord. Exists in failedGuesses")
-      } else { //puts the letter in failedGuesses array
+      } 
+      else { //puts the letter in failedGuesses array
         lives--;
         livesElem.innerText = lives;
         console.log("Lives remaining: " + lives);
@@ -75,7 +76,8 @@
         failedGuessesElem.innerText = failedGuesses;
         console.log("Not in chosenWord. Updated failedGuesses: " +failedGuesses);
       } 
-    } else{ //start of big else
+    } 
+    else{ //start of else that executes if userInput exists in chosenWord
 
       for (var j = 0; j < chosenWord.length; j++){ //populates targetWord with the user input
         if(chosenWord[j] === userInput){
@@ -84,23 +86,37 @@
           console.log("targetWord: " + targetWord);
         }
 
-        if(Array.from(chosenWord) === targetWord) { //checks if you have solved the puzzle
-          win ++;
-          console.log("Wins: " + win);
-          // reset and win game code here
-        }
       } // end for loop j
-
-      if(lives === 0) {
-        console.log("You have no more lives")
-        // reset code here
-      } // end of population for loop
+    
+      if(Array.from(chosenWord).toString() === targetWord.toString()) { //checks if you have solved the puzzle
+        console.log('Game win flag'); //flag is not going off    
+        numWins ++;
+        numWinsElem.innerText = numWins;
+        console.log("Wins: " + numWins);
+        // reset and win game code here
+      } 
 
     } // end of big else
+    
+    if(lives === 0) {
+      numLosses++;
+      numLossesElem.innerText = numLosses; 
+      console.log("Game loss flag");
+      // reset and lose game code here
+    } 
+
+      console.log("end of the code");
+      console.log("chosenWord: " +Array.from(chosenWord))
+      console.log("targetWord: " + targetWord)
+
+
+
+
+
 
 } // end of document.onkeyup 
 
-  </script>
+</script>
 
 </body>
 
