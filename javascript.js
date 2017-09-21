@@ -27,13 +27,14 @@
 
 
     var html = 
-    "<p> Target Word: <span id='target-word'>none</span></p>" +
+    "<h3> <strong>Let's Eat Some Fruit!</strong> </p>" +
+    "<h4> <span id='target-word'>none</span></h4>" +
     "<p> <span id='send-message'></span></p>" +
-    "<p> User Input: <span id='user-input'>none</span></p>" + 
-    "<p> Failed Guesses: <span id='fail-guesses'>none</span></p>" + 
-    "<p> Lives Remaining: <span id='remaining-lives'>none</span></p>" +
+    "<p> Last Letter Pressed: <span id='user-input'>none</span></p>" + 
+    "<p> Letters Guessed: <span id='fail-guesses'>none</span></p>" + 
+    "<p> Lives : <span id='remaining-lives'>none</span></p>" +
     "<p> Wins: <span id='num-wins'>0</span></p>" + 
-    "<p> Losses: <span id='num-losses'></span></p>" ;
+    "<p> Losses: <span id='num-losses'>0</span></p>" ;
 
     game = {
       randomlyChooseWord: function () {
@@ -107,7 +108,7 @@ createBlankTargetWord: function () {
       } else if (lives === 0){
         this.gameResult(false); // reset and lose game code here
       } 
-  }, //end function checkF
+  }, //end function check
 
   sendMessage: function (string) {
     sendMessageElem.innerText = string; 
@@ -120,7 +121,7 @@ createBlankTargetWord: function () {
       console.log("Game has been won");
       numWins++;
       numWinsElem.innerText = numWins; 
-      this.sendMessage("You correctly guessed the word!");
+      this.sendMessage("You correctly guessed the fruit!");
       console.log("Wins: " + numWins);
     } else { 
       console.log("Game has been lost");
@@ -180,7 +181,7 @@ createBlankTargetWord: function () {
     failedGuesses = [];
     failedGuessesElem.innerText = failedGuesses;
 
-    userInputElem.innerText = "Press a letter to guess the word!";
+    userInputElem.innerText = "Press a letter to guess the fruit!";
 
     console.log("Exiting function resetPage");
     console.log("-------------------------------");
@@ -211,7 +212,7 @@ function guessLetter (event) {
     else { 
     //add the letter to failedGuesses
     game.addToFailedGuesses(userInput);   
-    game.sendMessage("That letter is not in the word!")    
+    game.sendMessage("That letter is not in the fruit!")    
   } 
 
   game.checkForWin();
@@ -246,7 +247,7 @@ document.onkeyup = function(event) {
 
     // document.querySelector("#game").innerHTML = html;
 
-    
+
 
 
     // <p> <strong> Target Word: </strong><span id="target-word">none</span></p>
